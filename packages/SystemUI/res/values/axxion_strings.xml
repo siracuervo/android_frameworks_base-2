@@ -14,4 +14,8 @@
     <string name="halo_tutorial2">Move me: 2x-tap &amp; drag</string>
     <string name="halo_tutorial3">Browse tasks: Horizontal drag</string>
 
+    <!-- TRDS -->
+    <string name="quick_settings_theme_switch_dark">Dark theme</string>
+    <string name="quick_settings_theme_switch_light">Light theme</string>
+
 </resources>

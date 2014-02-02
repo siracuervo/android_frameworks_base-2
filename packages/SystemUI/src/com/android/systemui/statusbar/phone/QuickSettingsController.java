@@ -46,7 +46,7 @@ import static com.android.internal.util.cm.QSConstants.TILE_VOLUME;
 import static com.android.internal.util.cm.QSConstants.TILE_WIFI;
 import static com.android.internal.util.cm.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.cm.QSConstants.TILE_WIMAX;
-
+import static com.android.internal.util.cm.QSConstants.TILE_THEME;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -98,6 +98,7 @@ import com.android.systemui.quicksettings.VolumeTile;
 import com.android.systemui.quicksettings.RemoteDisplayTile;
 import com.android.systemui.quicksettings.WiFiTile;
 import com.android.systemui.quicksettings.WifiAPTile;
+import com.android.systemui.quicksettings.ThemeTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -292,6 +293,11 @@ public class QuickSettingsController {
                 if (QSUtils.adbEnabled(resolver)) {
                     qs = new NetworkAdbTile(mContext, this);
                 }
+ 	    } else if (tile.equals(TILE_POWER)) {
+                qs = new PowerMenuTile(mContext, this);     
+                qs = new PowerMenuTile(mContext, this);
+            } else if (tile.equals(TILE_THEME)) {
+                qs = new ThemeTile(mContext, this);     
             }
 
             if (qs != null) {
