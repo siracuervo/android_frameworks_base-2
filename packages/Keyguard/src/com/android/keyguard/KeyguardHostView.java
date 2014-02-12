@@ -1147,9 +1147,9 @@ public class KeyguardHostView extends KeyguardViewBase {
         if (mSlidingChallengeLayout == null) {
             return;
         }
-        int setting = Settings.System.getIntForUser(getContext().getContentResolver(),
-                Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0, UserHandle.USER_CURRENT);
-        if (setting == 1) {
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0,
+                UserHandle.USER_CURRENT) == 1) {
             mSlidingChallengeLayout.showChallenge(false);
         }
     }
