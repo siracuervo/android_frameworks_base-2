@@ -3350,6 +3350,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         if (uiThemeMode != mCurrUiThemeMode) {
             mCurrUiThemeMode = uiThemeMode;
             //recreateStatusBar();
+         } else {
+  
+            // detect TRDS change
+            if (uiThemeMode != mCurrUiThemeMode) {
+                 mCurrUiThemeMode = uiThemeMode;
+                 rebuildRecentsScreen();               
         }
 
         if (mClearButton instanceof TextView) {
