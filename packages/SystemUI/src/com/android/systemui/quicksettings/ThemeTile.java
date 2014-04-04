@@ -27,8 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 
-import com.android.internal.util.crdroid.TRDSConstant;
-import com.android.internal.util.crdroid.TRDSActions;
+import com.android.internal.util.axxion.TRDSConstant;
+import com.android.internal.util.axxion.TRDSActions;
 
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.QuickSettingsContainerView;
