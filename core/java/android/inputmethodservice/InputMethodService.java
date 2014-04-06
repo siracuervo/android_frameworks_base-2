@@ -895,7 +895,8 @@ public class InputMethodService extends AbstractInputMethodService {
      * is currently running in fullscreen mode.
      */
     public void updateFullscreenMode() {
-        boolean isFullscreen = mShowInputRequested && (onEvaluateFullscreenMode() || onEvaluateSplitView());
+            isFullscreen = mShowInputRequested && (onEvaluateFullscreenMode() || onEvaluateSplitView());
+        }
         boolean changed = mLastShowInputRequested != mShowInputRequested;
         if (mIsFullscreen != isFullscreen || !mFullscreenApplied) {
             changed = true;
@@ -991,7 +992,7 @@ public class InputMethodService extends AbstractInputMethodService {
         }
         return true;
     }
-    
+
     public boolean onEvaluateSplitView() {
         if (mCandidatesFrame.getChildCount() > 0) {
             Context candidateContext = mCandidatesFrame.getChildAt(0).getContext();
