@@ -54,7 +54,6 @@ import android.app.IActivityManager;
 import android.app.StatusBarManager;
 import android.app.admin.DevicePolicyManager;
 import android.animation.ValueAnimator;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -91,7 +90,6 @@ import android.os.StrictMode;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.Trace;
-import android.os.UserHandle;
 import android.os.WorkSource;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -4354,10 +4352,6 @@ public class WindowManagerService extends IWindowManager.Stub
             // If we are preparing an app transition, then delay changing
             // the visibility of this token until we execute that transition.
             if (okToDisplay() && mAppTransition.isTransitionSet()) {
-                // Already in requested state, don't do anything more.
-                if (wtoken.hiddenRequested != visible) {
-                    return;
-                }
                 wtoken.hiddenRequested = !visible;
 
                 if (!wtoken.startingDisplayed) {
@@ -5251,12 +5245,6 @@ public class WindowManagerService extends IWindowManager.Stub
         ShutdownThread.reboot(getUiContext(), null, true);
     }
 
-    // Called by window manager policy.  Not exposed externally.
-    @Override
-    public void rebootTile() {
-        ShutdownThread.reboot(mContext, null, true);
-    } 
-
     public void setCurrentUser(final int newUserId) {
         synchronized (mWindowMap) {
             int oldUserId = mCurrentUserId;
@@ -5357,7 +5345,6 @@ public class WindowManagerService extends IWindowManager.Stub
                 boolean haveWallpaper = false;
                 boolean wallpaperEnabled = mContext.getResources().getBoolean(
                         com.android.internal.R.bool.config_enableWallpaperService)
-                        && !mOnlyCore;
                 boolean haveKeyguard = true;
                 // TODO(multidisplay): Expand to all displays?
                 final WindowList windows = getDefaultWindowListLocked();
@@ -5441,23 +5428,10 @@ public class WindowManagerService extends IWindowManager.Stub
             mInputMonitor.setEventDispatchingLw(mEventDispatchingEnabled);
         }
 
-        // start QuickBoot to check if need restore from exception
-        if (SystemProperties.getBoolean("persist.sys.quickboot_ongoing", false))
-            checkQuickBootException();
-
         mPolicy.enableScreenAfterBoot();
 
         // Make sure the last requested orientation has been applied.
         updateRotationUnchecked(false, false);
-    }
-
-    private void checkQuickBootException() {
-        Intent intent = new Intent("org.codeaurora.action.QUICKBOOT");
-        intent.putExtra("mode", 2);
-        try {
-            mContext.startActivityAsUser(intent,UserHandle.CURRENT);
-        } catch (ActivityNotFoundException e) {
-        }
     }
 
     public void showBootMessage(final CharSequence msg, final boolean always) {
@@ -5669,7 +5643,8 @@ public class WindowManagerService extends IWindowManager.Stub
 
                     // We keep on including windows until we go past a full-screen
                     // window.
-                    including = !ws.mIsImWindow && !ws.isFullscreen(dw, dh);
+                    boolean fullscreen = ws.isFullscreen(dw, dh);
+                    including = !ws.mIsImWindow && !fullscreen;
 
                     final WindowStateAnimator winAnim = ws.mWinAnimator;
                     if (maxLayer < winAnim.mSurfaceLayer) {
@@ -9953,6 +9928,7 @@ public class WindowManagerService extends IWindowManager.Stub
 
             if (DEBUG_FOCUS_LIGHT) Slog.v(TAG, "findFocusedWindow: Found new focus @ " + i +
                         " = " + win);
+
             // Dispatch to this window if it is wants key events.
             if (win.canReceiveKeys()) {
                 if (mFocusedApp != null) {
@@ -10282,11 +10258,6 @@ public class WindowManagerService extends IWindowManager.Stub
     @Override
     public boolean hasNavigationBar() {
         return mPolicy.hasNavigationBar();
-    }
-
-    @Override
-    public boolean needsNavigationBar() {
-        return mPolicy.needsNavigationBar();
     }
 
     @Override
@@ -10982,7 +10953,7 @@ public class WindowManagerService extends IWindowManager.Stub
     public void addSystemUIVisibilityFlag(int flag) {
         mLastStatusBarVisibility |= flag;
     }
-        }
+
     /** SPLIT VIEW **/
     private int mSplitViewTasks[];
     private int mNextSplitViewLocation;
@@ -11160,11 +11131,4 @@ public class WindowManagerService extends IWindowManager.Stub
 
     }
     /** END SPLIT VIEW **/
-
-    /* @hide */
-    @Override
-    public int getSystemUIVisibility() {
-        return mLastStatusBarVisibility;
-    }
-
 }
