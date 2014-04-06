@@ -58,6 +58,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.WindowManagerGlobal;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewRootImpl;
