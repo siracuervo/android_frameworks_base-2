@@ -887,8 +887,6 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                     intent.setComponent(taskInfo.origActivity);
                 }
 
-                ComponentName component = intent.getComponent();
-
                 if (homeInfo == null
                     || !homeInfo.packageName.equals(component.getPackageName())
                     || !homeInfo.name.equals(component.getClassName())) {
