@@ -3209,6 +3209,12 @@ public final class Settings {
         public static final String QUIET_HOURS_MUTE = "quiet_hours_mute";
 
         /**
+         * HALO enabled, should default to 0 (HALO is disabled)
+         * @hide
+         */
+        public static final String HALO_ENABLED = "halo_enabled";
+        
+        /**
          * Whether to disable haptic feedback during quiet hours.
          * @hide
          */
