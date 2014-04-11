@@ -3351,24 +3351,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             updateSettings();
             updateHalo();
         } else {
-
-<<<<<<< HEAD
-        if (uiThemeMode != mCurrUiThemeMode) {
-            mCurrUiThemeMode = uiThemeMode;
-            //recreateStatusBar();
-         } else {
   
             // detect TRDS change
             if (uiThemeMode != mCurrUiThemeMode) {
                  mCurrUiThemeMode = uiThemeMode;
                  rebuildRecentsScreen();               
         }
-=======
-            // detect TRDS change
-            if (uiThemeMode != mCurrUiThemeMode) {
-                 mCurrUiThemeMode = uiThemeMode;
-            }
->>>>>>> 53b3e52... Keep current battery icon and update halo on theme changes
 
             if (mClearButton instanceof TextView) {
                 ((TextView)mClearButton).setText(context.getText(R.string.status_bar_clear_all_button));
