@@ -1700,4 +1700,3 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
         }
     }
 }
-
