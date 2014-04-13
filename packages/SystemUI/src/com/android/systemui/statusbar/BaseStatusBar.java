@@ -161,16 +161,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     PowerManager mPowerManager;
     protected int mRowHeight;
 
-    protected FrameLayout mStatusBarContainer;
-    
-    // Halo
-    protected Halo mHalo = null;
-    protected Ticker mTicker;
-    protected boolean mHaloEnabled;
-    protected boolean mHaloActive;
-    protected boolean mHaloTaskerActive = false;
-    protected ImageView mHaloButton;
-    protected boolean mHaloButtonVisible = true; 
+    protected FrameLayout mStatusBarContainer; 
 
     private Runnable mPanelCollapseRunnable = new Runnable() {
         @Override
