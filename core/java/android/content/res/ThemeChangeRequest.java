@@ -91,7 +91,7 @@ public final class ThemeChangeRequest implements Parcelable {
         return mThemeComponents.size() + mPerAppOverlays.size();
     }
 
-    public RequestType getReqeustType() {
+    public RequestType getRequestType() {
         return mRequestType;
     }
 
